@@ -20,4 +20,4 @@ Versioning follows [Semantic Versioning](https://semver.org). `0.x` means initia
 - Added `.category-styles` flex row layout in `styles.css`, replacing the starter pastry-card styles.
 - Fixed the Dairy section: added a missing closing `</div>` and removed duplicate item buttons.
 - Added this README and extended `.gitignore` (`.env.*`, `npm-debug.log*`, `*.swp`, `build/`).
-- Merged with the existing remote "Initial commit"; `curriculum_files/` is kept as-is.
+- Merged with the existing remote "Initial commit", replacing its starter `index.html` and `styles.css`.
