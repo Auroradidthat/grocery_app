@@ -1,0 +1,126 @@
+# User Configuration
+# Holds per-lesson state: topic, scenario, progress.
+# The main config (main_config-v5.0.0.md) holds the fixed rules.
+# Update this file each lesson; the main config should rarely change.
+
+course:
+  name: "Integrated Front-End Fundamentals (HTML/CSS/JS)"
+  learner: "Aurora"
+  template_version: "5.0.0"
+
+learning_map:
+  tiers:
+    - name: "Tier 1 - Foundations"
+      topics:
+        - {n: 1,  name: "HTML document structure & semantic elements", stack: html, status: complete}
+        - {n: 2,  name: "CSS selectors, specificity & the cascade", stack: css, status: not_started}
+        - {n: 3,  name: "CSS box model", stack: css, status: not_started}
+        - {n: 4,  name: "JS syntax, variables & data types", stack: js, status: not_started}
+        - {n: 5,  name: "JS operators & expressions", stack: js, status: not_started}
+        - {n: 6,  name: "CSS layout basics (display & positioning)", stack: css, status: not_started}
+    - name: "Tier 2 - Structure meets logic"
+      topics:
+        - {n: 7,  name: "JS conditionals + CSS class-based state", stack: integrated, status: not_started}
+        - {n: 8,  name: "JS loops + generating repeated HTML", stack: integrated, status: not_started}
+        - {n: 9,  name: "Functions + reusable component thinking", stack: integrated, status: not_started}
+        - {n: 10, name: "Flexbox", stack: css, status: not_started}
+        - {n: 11, name: "Arrays & objects", stack: js, status: not_started}
+        - {n: 12, name: "CSS Grid", stack: css, status: not_started}
+    - name: "Tier 3 - DOM & real interactivity"
+      topics:
+        - {n: 13, name: "DOM selection & traversal", stack: js, status: not_started}
+        - {n: 14, name: "Event listeners (mouse & keyboard)", stack: js, status: not_started}
+        - {n: 15, name: "classList & ARIA state toggling", stack: integrated, status: not_started}
+        - {n: 16, name: "Form handling & accessible validation", stack: integrated, status: not_started}
+        - {n: 17, name: "CSS custom properties read/written by JS", stack: integrated, status: not_started}
+        - {n: 18, name: "Scope & closures", stack: js, status: not_started}
+    - name: "Tier 4 - Interactive patterns & responsive design"
+      topics:
+        - {n: 19, name: "Focus management & keyboard navigation", stack: integrated, status: not_started}
+        - {n: 20, name: "Accessible disclosure patterns (accordion/modal)", stack: integrated, status: not_started}
+        - {n: 21, name: "Responsive design (media queries) & viewport testing", stack: css, status: not_started}
+    - name: "Tier 5 - Async & polish"
+      topics:
+        - {n: 22, name: "Fetch & JSON", stack: js, status: not_started}
+        - {n: 23, name: "Rendering fetched data + accessible live regions", stack: integrated, status: not_started}
+        - {n: 24, name: "Error handling & accessible status announcements", stack: integrated, status: not_started}
+        - {n: 25, name: "Animations, transitions & prefers-reduced-motion", stack: integrated, status: not_started}
+
+current_lesson:
+  topic_n: 2
+  topic_name: "CSS selectors, specificity & the cascade"
+  stack: css
+  status: not_started
+
+cumulative_reference_sheet:
+  entries:
+    - {symbol: "<!DOCTYPE html>", stack: html, term: "doctype declaration", meaning: "tells the browser to use standards mode", worked_result: "first line of every page"}
+    - {symbol: "<html>", stack: html, term: "root element", meaning: "wraps the entire document", worked_result: "contains exactly one head and one body, in that order"}
+    - {symbol: "<head>", stack: html, term: "document head", meaning: "metadata, not rendered on screen", worked_result: "holds title when present; otherwise present and empty"}
+    - {symbol: "<body>", stack: html, term: "document body", meaning: "everything visible to the visitor", worked_result: "holds all visible content"}
+    - {symbol: "<title>", stack: html, term: "title element", meaning: "shown in the browser tab / announced first by screen readers", worked_result: "e.g. Sweet Crumb Bakery - About Us"}
+    - {symbol: "<h1>-<h2>", stack: html, term: "heading elements", meaning: "describe document outline; same structural depth = same level", worked_result: "used for page and section headings throughout"}
+    - {symbol: "<p>", stack: html, term: "paragraph", meaning: "a block of plain body text, no outline meaning", worked_result: "used for body text under headings"}
+    - {symbol: "<header>", stack: html, term: "header (landmark: banner)", meaning: "intro content for the page or a section", worked_result: "wraps shop name and nav"}
+    - {symbol: "<nav>", stack: html, term: "navigation landmark", meaning: "a group of navigation links", worked_result: "wraps Menu/Hours-style links"}
+    - {symbol: "<main>", stack: html, term: "main landmark", meaning: "the primary content, one per page", worked_result: "wraps page's core content"}
+    - {symbol: "<section>", stack: html, term: "section", meaning: "a distinct, labeled grouping of related content; needs its own heading", worked_result: "used only when 2+ sub-topics exist"}
+    - {symbol: "<footer>", stack: html, term: "footer (landmark: contentinfo)", meaning: "closing content for the page or a section", worked_result: "wraps closing info like address or hours"}
+    - {symbol: "<ul>", stack: html, term: "unordered list", meaning: "groups related items where order doesn't matter", worked_result: "e.g. pastry names"}
+    - {symbol: "<ol>", stack: html, term: "ordered list", meaning: "groups related items where order matters", worked_result: "e.g. baking steps"}
+    - {symbol: "<li>", stack: html, term: "list item", meaning: "one entry inside a ul or ol", worked_result: "one per pastry / one per step"}
+    - {symbol: "<a> link text", stack: html, term: "link text", meaning: "words between <a> and </a>, must stand alone out of context", worked_result: "e.g. 'store hours', not 'click here'"}
+    - {symbol: "alt attribute", stack: html, term: "alt text", meaning: "text alternative for an image, read aloud in place of it", worked_result: "describes content, never the filename"}
+
+completed_lessons:
+  topic_1_html_document_structure:
+    stack: html
+    concepts:
+      - {n: 1, name: "Document skeleton", status: complete, note: "Doctype/html/head/body ordering solid throughout. Recurring miss: exact-text copying dropped required punctuation twice (em dash, both times - later resolved by removing em dashes from mandatory text per learner request). Reached for <h2> instead of <p> for plain body text once, corrected. One debugging exercise required a second pass: initially named a visible symptom (title misplaced) rather than the actual structural gap (missing head element entirely)."}
+      - {n: 2, name: "Sectioning elements", status: complete, note: "Landmark elements (header/nav/main/footer) used correctly throughout. Section-count decision rule (1 topic = no wrapper, 2+ = separate sections) was missed once on first exercise, tracked as a watch per learner's request rather than corrected immediately, then applied correctly and unprompted on the next two exercises - watch resolved within the same concept. Debugging exercises: correctly caught div-instead-of-footer fault but initially described the effect too vaguely (\"harder to navigate\" rather than \"not a landmark at all\"); final exercise had three stacked faults (heading level inconsistency, unnecessary nested section, missing heading on outer section) - first pass named two of three with imprecise mechanisms, corrected on second pass. This exercise prompted a rule change: max two independent faults per debugging exercise going forward."}
+      - {n: 3, name: "Lists", status: complete, note: "ul-vs-ol decision rule (would swapping items change meaning) applied correctly after one initial miss on the first exercise (used ol for order-doesn't-matter items). Both debugging exercises solved correctly; naming-only answers (no forced mechanism explanation) introduced as a rule change mid-concept, at learner's request, following fatigue during Concept 2's final exercise."}
+      - {n: 4, name: "Links and images", status: complete, note: "Core naming decision rule (out-of-context test for links, content-not-filename for alt) applied correctly and consistently by the end. Alt text was strong throughout, no misses. Link-text faults (\"click here\", \"here\") both correctly identified, though one initial fix attempt added descriptive words outside the <a> tags rather than inside them, corrected once shown where the tag boundaries actually were. A paragraph-wrapper requirement was correctly challenged by the learner as lacking a real justification and was dropped - prompted a new rule requiring every exercise requirement to have a statable reason before posting."}
+    final_exercises:
+      total: 5
+      completed: 0
+      note: "Skipped by learner request at end of lesson. Not attempted."
+    scenario:
+      shop_name: {value: "Sweet Crumb Bakery", meaning: "the bakery used throughout this lesson's scenario"}
+      about_page: {title: "Sweet Crumb Bakery - About Us", heading: "About Sweet Crumb"}
+      contact_page: {title: "Sweet Crumb Bakery - Contact", heading: "Get In Touch", body_line: "We're open Tuesday through Sunday."}
+      menu_page: {title: "Sweet Crumb Bakery - Menu", heading: "Our Menu", body_line: "Fresh bread baked daily."}
+      hours_page: {title: "Sweet Crumb Bakery - Hours", heading: "Our Hours", body_line: "Open 7am to 6pm daily."}
+      landmarks_scenario: {header: "Sweet Crumb Bakery", nav_links: ["Menu", "Hours"], sections: [{heading: "Our Story", body: "Started in a home kitchen in 2010."}, {heading: "Our Ingredients", body: "Local flour, local butter, nothing else."}], footer: "Find us at 12 Baker Street. / Call ahead for holiday hours."}
+      lists_scenario: {pastries: ["Croissant", "Cinnamon Roll", "Scone"], sourdough_steps: ["Mix flour, water, and starter", "Let it rise for 4 hours", "Bake at 450 degrees for 30 minutes"], fillings: ["Apple", "Cherry", "Custard"], oven_steps: ["Preheat the oven", "Prepare the dough", "Bake"]}
+      links_images_scenario: {menu_link: "#menu", hours_link: "#hours", contact_link: "#contact", reviews_link: "#reviews", images: ["bread-basket.jpg", "cinnamon-roll.jpg", "bakery-storefront.jpg", "sourdough-crumb.jpg"]}
+    template_versions_during_lesson: "Started at v1.0.0, ended at v5.0.0 - 5 mid-lesson rule changes (v2-v5): no em dashes/hard-to-type symbols in mandatory text plus no live self-correction (v2), max two independent faults per debugging exercise plus naming-only as a complete answer (v3), minimum-viable-code / no empty elements without a stated reason (v4), every exercise requirement must have a statable justification before posting (v5). Full detail in changelog.md."
+
+recurring_patterns_flagged:
+  - "<head> element placement relative to <body> under <html> - three occurrences in Topic 1, Concept 4, Exercise 1 alone: visible content (a nav/link) nested inside <head>, then <head> dropped as a sibling of <body> instead of a sibling under <html>, then <head> nested inside <body>. Distinct from Concept 1's earlier single miss (title misplaced due to a missing head entirely) - this is specifically about head's position among its siblings, not what goes inside it. Open watch, address in Topic 2's exercises where relevant, or in a future final-exercises set once those resume."
+
+next_action: "Begin Tier 1, Topic 2 (CSS selectors, specificity & the cascade), Concept 1. Topic 1's five final exercises were skipped and remain undone - available to run later, standalone or folded into a future cross-topic final-exercise set."
+
+coverage_rotation_tracker:
+  note: "Replaces the JS-only operator_rotation_tracker. Same mechanism, expanded to all three stacks. Checked when building any exercise (Rule 7 or Rule 8) - prefer a category that hasn't appeared recently, worked into the current concept's own requirements. Update last_appeared whenever a category is used, at the same point progress is saved."
+  categories:
+    js:
+      - {category: "Arithmetic (+, -, *, /, %)", last_appeared: "Not yet used this course."}
+      - {category: "Comparison (<, >, <=, >=, ===, !==)", last_appeared: "Not yet used this course."}
+      - {category: "Logical (&&, ||, !)", last_appeared: "Not yet used this course."}
+      - {category: "Assignment / compound (+=, -=, *=, /=)", last_appeared: "Not yet used this course."}
+      - {category: "Ternary (condition ? a : b)", last_appeared: "Not yet used this course."}
+      - {category: "Increment/decrement (++, --)", last_appeared: "Not yet used this course."}
+    css:
+      - {category: "Type selectors", last_appeared: "Not yet used this course."}
+      - {category: "Class selectors", last_appeared: "Not yet used this course."}
+      - {category: "ID selectors", last_appeared: "Not yet used this course."}
+      - {category: "Attribute selectors", last_appeared: "Not yet used this course."}
+      - {category: "Pseudo-classes (:hover, :focus, :nth-child)", last_appeared: "Not yet used this course."}
+      - {category: "Pseudo-elements (::before, ::after)", last_appeared: "Not yet used this course."}
+      - {category: "Combinators (descendant, child, sibling)", last_appeared: "Not yet used this course."}
+    html:
+      - {category: "Sectioning elements (section, article, aside, nav)", last_appeared: "Topic 1, Concept 2 - header/nav/main/section/footer landmarks"}
+      - {category: "Heading elements & outline", last_appeared: "Topic 1, Concept 2 - h1/h2 depth-based leveling"}
+      - {category: "Landmark roles (header, main, footer, nav)", last_appeared: "Topic 1, Concept 2 - full landmark set used"}
+      - {category: "Form elements & labeling", last_appeared: "Not yet used this course."}
+      - {category: "Interactive elements (button, a, details/summary)", last_appeared: "Topic 1, Concept 4 - anchor link text"}

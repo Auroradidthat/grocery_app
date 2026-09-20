@@ -1,0 +1,10 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.pastry-card {
+  width: 13rem;
+  padding: 1.25rem;
+  border: 0.25rem solid #3a2a1a;
+  margin:1rem;
+}/* end .pastry-card */
