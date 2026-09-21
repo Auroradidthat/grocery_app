@@ -4,6 +4,47 @@ Per-session development notes. Newest entry first. Release and version history l
 
 ---
 
+## Session 2 – 2026-09-21
+
+### What I worked on
+- Started on responsive design and CSS. I first wrote a full mobile-first `styles.css` myself, then reverted it (see below); the user is writing the styles.
+- The user's own CSS work: added `.section-styles` (flex row, border, padding), changed `.category-styles` to a CSS grid (`repeat(auto-fill, minmax(9rem, 1fr))`, `gap: 0.75rem`), added a global `button` rule (`width: 100%`, padding, margin).
+- The user's HTML changes: added `class="section-styles"` to both `<section>`s, moved the "Add Shopping Items" `<h2>` out of its `<section>`, and moved each category `<h3>` inside its `.category-styles` div.
+- Explained ways to make the item buttons a uniform size (grid, fixed flex basis, fixed width).
+- Reviewed the user's CSS and listed improvements (next step).
+
+### Files / components changed
+- `styles.css` – user's new `.section-styles`, grid-based `.category-styles`, `button` rule.
+- `index.html` – `section-styles` classes; `<h2>` and `<h3>` moved as described above.
+
+### Problems encountered and how they were resolved
+- I wrote a full `styles.css` when only asked to "add responsive design and styles". The user reverted it (`git checkout -- styles.css`) and set a rule: no styles from me. Recorded as a project memory rule.
+
+### Decisions and reasons
+- The user writes all CSS; I only explain and advise.
+- No version bump or README changelog entry: styling is in progress and not a release.
+
+### Attempted / left unresolved
+- CSS is in progress; layout not yet checked at phone/tablet widths.
+- Each category `<h3>` is now a grid item inside `.category-styles`, so it takes up one cell alongside the buttons.
+- Carried over from Session 1: BOM in `README.md`, no `.gitattributes`, `index.html` cosmetics (stray space in `<div >`, "Musili", lorem ipsum footer, placeholder nav links).
+
+### Current state
+- Static page with partial styling; buttons still do nothing, the Grocery List `<div>` is still empty, no JavaScript. Still `v0.1.0`.
+
+### Next step
+Work through the CSS review:
+1. `button`: remove `margin: 0.5em` (it overflows the grid cell and stacks with `gap`).
+2. `.section-styles`: the flex row puts children side by side; use column, drop flex, or use `flex-wrap` with a `flex-basis`.
+3. Scope `button` to `.category-styles button`; use `border: 1px solid blue` shorthand.
+4. Reduce padding on phones (section 1.2em + category 2em + borders); raise it in a `min-width` media query or use `clamp()`.
+5. Minor: global `box-sizing: border-box`, `minmax(min(9rem, 100%), 1fr)`, prefer `rem`, rename the `*-styles` classes.
+6. Decide whether the category `<h3>` should span the full grid row (it's currently a grid item).
+
+Then return to the v0.2.0 script: give the Grocery List `<div>` an `id` and add `script.js` so item buttons add to the list.
+
+---
+
 ## Session 1 – 2026-09-19 → 2026-09-20
 
 ### What I worked on

@@ -1,4 +1,22 @@
-.category-styles {
-    display: flex;
+.section-styles {
+    border-style: solid;
+    padding:  1.2em;
+    display:flex;
     flex-direction: row;
+    justify-content: space-around;
+}
+
+.category-styles {
+    border-style: solid;
+    border-color: blue;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.75rem;
+}
+
+button {
+    width: 100%;
+    padding: 0.5em;
+    margin: 0.5em;
 }
