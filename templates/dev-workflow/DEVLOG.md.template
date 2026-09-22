@@ -1,0 +1,36 @@
+# Dev Log
+
+Per-session development notes. Newest entry first. Release and version
+history lives in the README changelog, not here.
+
+---
+
+<!--
+  Write the first real entry at the end of Session 1, following this
+  shape (copy/rename the heading, delete this comment once it's real):
+
+## Session 1 – YYYY-MM-DD
+
+### What I worked on
+-
+
+### Files / components changed
+-
+
+### Problems encountered and how they were resolved
+-
+
+### Decisions and reasons
+-
+
+### Attempted / left unresolved
+-
+
+### Current state
+-
+
+### Next step
+-
+
+---
+-->
