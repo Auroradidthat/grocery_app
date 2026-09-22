@@ -4,6 +4,49 @@ Per-session development notes. Newest entry first. Release and version history l
 
 ---
 
+## Session 3 – 2026-09-22
+
+### What I worked on
+- Worked through the Session 2 CSS review list (1–6): removed redundant `button` margin; changed `.section-styles` from a plain flex row to `flex-wrap` + `flex-basis: 20rem`; scoped `button` to `.category-grid button` and shortened the border to shorthand; moved padding to `clamp()` (a mobile-first `min-width` media query was tried first, then replaced by `clamp()`); added global `box-sizing: border-box`; changed the grid column floor to `minmax(min(9rem, 100%), 1fr)`; switched `em`→`rem`; renamed `.section-styles`→`.list-section` and `.category-styles`→`.category-grid` (and updated `index.html` to match); moved each category's `<h3>` out of `.category-grid` so it's no longer a grid item.
+- Follow-on layout request: grouped the seven categories into rows of three. Added a new `.category-list` class (mobile-first: 1 column, 3 columns at `min-width: 40rem`) applied only to the Shopping Item Selection `<section>`, kept independent from the shared `.list-section` class so the Grocery List section's layout isn't affected.
+- Full accessibility pass (WCAG-adjacent, manual review, items #1–#7):
+  1. Restored the Shopping section's accessible name via `aria-labelledby`/`id` (broken when `<h2>` was moved out of the section in Session 2).
+  2. Wired the nav's placeholder links to real in-page targets (`#grocery-list`, `#accessibility-statement`) with `tabindex="-1"` on targets for reliable focus; left "Home" as a real link to `index.html`.
+  3. Added a skip-to-main-content link (`<main id="main-content">`).
+  4. Wrapped each category in `role="group"` + `aria-labelledby`, tied to a unique `id` on each `<h3>`.
+  5. Converted each category's item buttons from `<div>`s to `<ul>`/`<li>` for list semantics; added `list-style: none; margin: 0;` to `.category-grid` to offset `<ul>` browser defaults.
+  6. Added `id="grocery-list-items"` and `aria-live="polite"` to the (re-added) empty Grocery List `<div>`, prepping it for the v0.2.0 script.
+  7. Bumped the footer's `Accessibility Statement` heading from `<h3>` to `<h2>` (top-level landmark, not a subsection).
+- Also fixed the "Musili"→"Muesli" typo and shortened "Greek Yogurt"→"Yogurt" while converting Pantry/Dairy to list items.
+- Discussed a full WCAG 2.2 AA audit; deferred — color contrast can't be meaningfully assessed before real colors are chosen, and no automated tooling was run.
+
+### Files / components changed
+- `index.html` — nav hrefs, skip link, `id`s/`aria-labelledby`/`role="group"`/`tabindex` throughout, `<ul>/<li>` conversion for all 7 categories, footer heading level, re-added Grocery List `<div>` with live-region attributes.
+- `styles.css` — CSS review items 1–6, new `.category-list` class, `list-style`/`margin` reset for the new `<ul>`.
+
+### Problems encountered and how they were resolved
+- Several rounds of edits broke things and were caught by re-checking: a stray unmatched `<div>`/`</section>` split during the rename, mismatched selectors left pointing at old class names after a rename (dead CSS), a malformed multi-line CSS "comment" (`/** ... **/`) that an inner `/* */` closed early, leaving invalid trailing tokens, and a dangling `aria-labelledby` reference caused by a duplicated/misplaced closing `</section>` tag. All caught via re-reading the file (occasionally needing a direct disk read via Bash when the IDE buffer lagged behind a save) rather than trusting paste/description alone.
+
+### Decisions and reasons
+- Used `clamp()` over a `min-width` media query for padding (fluid scaling, no breakpoint to pick/maintain).
+- Kept `.category-list` (3-column grouping) as a separate class from `.list-section` rather than modifying `.list-section` directly, to avoid coupling the Grocery List section's layout to the Shopping section's.
+- Accessibility fixes were scoped to manual code review only — no automated tooling (axe/Pa11y/Lighthouse) run, consistent with the project's no-Node-tooling stance; a full WCAG 2.2 audit was offered but deferred by the user for a future session.
+
+### Attempted / left unresolved
+- Full WCAG 2.2 AA audit — deferred.
+- Skip-link CSS (visually-hidden-until-focus styling) — HTML is in place, styling not yet written.
+- Responsive design: the "Add Shopping Items" `<h2>` (`id="shopping-items-heading"`) is currently positioned incorrectly and needs to stack on top rather than its current layout.
+- Nav menu isn't responsive yet — needs CSS work, with a hamburger menu (JS) planned for narrow screens eventually.
+- v0.2.0 script (`script.js`, wiring item buttons to the Grocery List) still not started.
+
+### Current state
+- Static page, fully passed through this session's CSS and accessibility review lists. No JavaScript yet. Still `v0.1.0` (no version bump — no release, ongoing styling/accessibility work).
+
+### Next step
+Fix the responsive positioning of the "Add Shopping Items" heading (should stack above its section rather than its current placement), then move on to making the nav menu responsive (CSS first, hamburger menu via JS later).
+
+---
+
 ## Session 2 – 2026-09-21
 
 ### What I worked on

@@ -7,11 +7,11 @@
   <title>Aurora Goes Shopping</title>
 </head>
 <body>
-
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Grocery List</a>
-        <a href="#">Accessibility Statement</a>
+        <a href="index.html">Home</a>
+        <a href="#grocery-list">Grocery List</a>
+        <a href="#accessibility-statement">Accessibility Statement</a>
     </nav>
 
     <header>
@@ -19,151 +19,94 @@
         <p>My grocery list app</p>
     </header>
 
-    <main>
+    <main id="main-content">
+
         <!--Grocery Display-->
-        <section class="section-styles">
+        <section class="list-section" id="grocery-list" tabindex="-1">
             <h2>Grocery List</h2>
-            <div></div>
+            <div id="grocery-list-items" aria-live="polite"></div>
         </section>
         <!--End Grocery Display-->
 
         <!--Shopping Item Selection-->
-        <h2>Add Shopping Items</h2>
-        <section class="section-styles">
-            <div>
-                <div class="category-styles">
-                    <h3>Produce</h3>
-                    <div>
-                        <button type="button">Bell Pepper</button>
-                    </div>
-                    <div>
-                        <button type="button">Broccoli</button>
-                    </div>
-                    <div>
-                        <button type="button">Carrots</button>
-                    </div>
-                    <div>
-                        <button type="button">Celery</button>
-                    </div>
-                    <div>
-                        <button type="button">Garlic</button>
-                    </div>
-                    <div>
-                        <button type="button">Ginger</button>
-                    </div> 
-                    <div>
-                        <button type="button">Grapes</button>
-                    </div>
-                    <div>
-                        <button type="button">Onions</button>
-                    </div>
-                    <div>
-                        <button type="button">Passion Fruit</button>
-                    </div>    
-                    <div>
-                        <button type="button">Spinach</button>
-                    </div> 
-                </div>             
+        <section class="list-section category-list" aria-labelledby="shopping-items-heading">
+            <h2 id="shopping-items-heading">Add Shopping Items</h2>
+            <div role="group" aria-labelledby="produce-heading">
+                <h3 id="produce-heading">Produce</h3>
+                <ul class="category-grid">
+                    <li><button type="button">Bell Pepper</button></li>
+                    <li><button type="button">Broccoli</button></li>
+                    <li><button type="button">Carrots</button></li>
+                    <li><button type="button">Celery</button></li>
+                    <li><button type="button">Garlic</button></li>
+                    <li><button type="button">Ginger</button></li>
+                    <li><button type="button">Grapes</button></li>
+                    <li><button type="button">Onion</button></li>
+                    <li><button type="button">Passion Fruit</button></li>
+                    <li><button type="button">Spinach</button></li>
+                </ul>             
             </div>
 
-            <div>
-                <div class="category-styles">
-                    <h3>Meat</h3>
-                    <div >
-                        <button type="button">Beef</button>
-                    </div>
-                    <div>
-                        <button type="button">Turkey</button>
-                    </div>
-                    <div>
-                        <button type="button">Chicken</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="meat-heading">
+                <h3 id="meat-heading">Meat</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Beef</button></li>
+                        <li><button type="button">Turkey</button></li>
+                        <li><button type="button">Chicken</button></li>
+                    </ul>
             </div>
 
-            <div>
-                <div class="category-styles">
-                    <h3>Dairy</h3>
-                    <div>
-                        <button type="button">Oat Milk</button>
-                    </div>
-                    <div>
-                        <button type="button">Almond Milk</button>
-                    </div>
-                    <div>
-                        <button type="button">Cheese</button>
-                    </div>
-                    <div>
-                        <button type="button">Greek Yogurt</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="dairy-heading">
+                <h3 id="dairy-heading">Dairy</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Oat Milk</button></li>
+                        <li><button type="button">Almond Milk</button></li>
+                        <li><button type="button">Cheese</button></li>
+                        <li><button type="button">Yogurt</button></li>
+                    </ul>
             </div>
-            <div>
-                <div class="category-styles">
-                    <h3>Pantry</h3>
-                    <div>
-                        <button type="button">Musili</button>
-                    </div>
-                    <div>
-                        <button type="button">Wild Rice</button>
-                    </div>
-                    <div>
-                        <button type="button">Honey</button>
-                    </div>
-                    <div>
-                        <button type="button">Veganaise</button>
-                    </div>
-                    <div>
-                        <button type="button">Fruit Spread</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="pantry-heading">
+                <h3 id="pantry-heading">Pantry</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Muesli</button></li>
+                        <li><button type="button">Wild Rice</button></li>
+                        <li><button type="button">Honey</button></li>
+                        <li><button type="button">Veganaise</button></li>
+                        <li><button type="button">Fruit Spread</button></li>
+                    </ul>
             </div>
 
-            <div>
-                <div class="category-styles">
-                    <h3>Desserts</h3>
-                    <div>
-                        <button type="button">Cupcakes</button>
-                    </div>
-                    <div>
-                        <button type="button">Cookies</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="dessert-heading">
+                <h3 id="dessert-heading">Desserts</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Cupcakes</button></li>
+                        <li><button type="button">Cookies</button></li>
+                    </ul>
             </div>
 
-            <div>
-                <div class="category-styles">
-                    <h3>Cleaning Supplies</h3>
-                    <div>
-                        <button type="button">Disinfectant</button>
-                    </div>
-                    <div>
-                        <button type="button">Soap</button>
-                    </div>
-                    <div>
-                        <button type="button">Window Cleaner</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="cleaning-supplies-heading">
+                <h3 id="cleaning-supplies-heading">Cleaning Supplies</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Disinfectant</button></li>
+                        <li><button type="button">Soap</button></li>
+                        <li><button type="button">Window Cleaner</button></li>
+                    </ul>
             </div>
 
-            <div>
-                <div class="category-styles">
-                    <h3>Dental Hygiene</h3>
-                    <div>
-                        <button type="button">Mouthwash</button>
-                    </div>
-                    <div>
-                        <button type="button">Dental Floss</button>
-                    </div>
-                </div>
+            <div role="group" aria-labelledby="dental-hygiene-heading">
+                <h3 id="dental-hygiene-heading">Dental Hygiene</h3>
+                    <ul class="category-grid">
+                        <li><button type="button">Mouthwash</button></li>
+                        <li><button type="button">Dental Floss</button></li>
+                    </ul>
             </div>           
         </section>
         <!--End Shopping Item Selection-->
     </main>
 
-    <footer>
+    <footer id="accessibility-statement" tabindex="-1">
         <div>
-            <h3>Accessibility Statement</h3>
+            <h2>Accessibility Statement</h2>
             <p>lorem ipsum dolor sit amet consectetur adipiscing elit velit quo consequat illum nulla exercitation 
                 autem magna quod qui et amet nisi et sunt minim voluptas rerum quo aliquip ut anim dolor maxime fuga 
                 ad eu in elit nam vel commodo excepteur consequatur dolorem eum in molestias aute excepteur temporibus ut</p>
