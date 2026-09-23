@@ -8,7 +8,8 @@ The user is an entry-level developer (0 years experience). Write README.md and D
 ## Documentation split
 - `README.md` changelog: release and version history only (SemVer, `0.x` during the building stage).
 - `DEVLOG.md`: per-session development notes, newest entry first.
-Keep the two separate.
+- `wishlist.md`: unplanned ideas — no commitment, no structure required. When an idea from here actually gets worked on, it moves into a session's DEVLOG entry (and can be removed from the wishlist).
+Keep these separate.
 
 ## Start of every session
 Read the most recent (top) entry in `DEVLOG.md`. Briefly tell the user where they left off and what the recorded **Next step** was, before doing anything else.
