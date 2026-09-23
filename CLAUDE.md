@@ -1,5 +1,10 @@
 # Project notes for Claude
 
+## Audience
+The user is an entry-level developer (0 years experience). Write README.md and DEVLOG.md accordingly:
+- README.md: written for a beginner reading it fresh — define technical terms plainly on first use.
+- DEVLOG.md: stays technical and precise (exact error codes, SQL, ARIA attributes, etc. — its job is still to let a session be reconstructed without memory), but gloss each non-obvious term in plain language, in parentheses, the first time it appears **within that entry**. Don't re-gloss a term already glossed earlier in the same entry.
+
 ## Documentation split
 - `README.md` changelog: release and version history only (SemVer, `0.x` during the building stage).
 - `DEVLOG.md`: per-session development notes, newest entry first.
