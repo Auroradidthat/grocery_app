@@ -4,6 +4,46 @@ Per-session development notes. Newest entry first. Release and version history l
 
 ---
 
+## Session 5 – 2026-09-23
+
+### What I worked on
+- Discussed and scoped the long-term product architecture: custom item entry (textbox + category → persistent button), recipes (bulk-add a named item group to the grocery list), and eventual login, built on PHP + MySQL.
+- Decided per-user data scope (custom items/categories/recipes are private per account, not shared) and a Docker Compose local dev stack (PHP+Apache, MySQL, phpMyAdmin) — deferred login/item-form/recipe UI to future sessions.
+- Built the backend foundation: `docker-compose.yml` (web/db/phpmyadmin services), `docker/php/Dockerfile` (`php:8.3-apache` + `pdo_mysql`/`mysqli`), `.env`/`.env.example` for DB credentials, `db/init/001_schema.sql` (six tables: `users`, `categories`, `items`, `recipes`, `recipe_items`, `grocery_list_items`, all per-user via `user_id` FKs, plus a placeholder dev user), and `api/health.php` (PDO connectivity check).
+- Added a "Running locally" section to `README.md` documenting the Docker workflow and the three local URLs.
+- Verified the full stack: built and started containers, confirmed the static site still renders unchanged at `:8080`, confirmed `/api/health.php` returns a healthy DB connection with the correct table count, confirmed schema + placeholder user via phpMyAdmin/CLI, and confirmed data persists across a `down`/`up` restart (without `-v`).
+- Generated a real bcrypt hash for the placeholder dev user's password via the running `web` container (`docker compose exec web php -r "..."`) and updated both the live row and `db/init/001_schema.sql` so a fresh volume seeds a valid hash too.
+
+### Files / components changed
+- New: `docker-compose.yml`, `docker/php/Dockerfile`, `db/init/001_schema.sql`, `api/health.php`, `.env` (gitignored), `.env.example`.
+- `README.md` — added Docker "Running locally" instructions and updated the Files list.
+
+### Problems encountered and how they were resolved
+- MySQL init failed on `grocery_list_items`: a `CHECK (item_id IS NOT NULL OR free_text_name IS NOT NULL)` constraint referencing `item_id` isn't allowed alongside that column's `ON DELETE SET NULL` foreign key action (MySQL error 3823). Dropped the CHECK constraint; that "at least one of the two must be set" rule will need to be enforced in the API layer instead of at the DB level.
+- First `docker compose up` attempt happened before Docker Desktop was running; resumed once confirmed started. Generating the placeholder dev user's bcrypt hash initially failed too, for the same underlying reason — running `php -r` against the host shell doesn't work since PHP isn't installed on Windows itself, only inside the container. Fixed by running it through the container instead: `docker compose exec web php -r "..."`.
+
+### Decisions and reasons
+- Per-user data scope for items/categories/recipes, even before login exists — avoids a later migration from shared/global to per-user data, and login only needs to add an auth endpoint against the already-existing `users` table.
+- `user_id` columns are `NOT NULL` (not nullable) with a placeholder dev user (`id = 1`) rather than nullable FKs — nullable-to-NOT-NULL migrations are painful once real data exists; this way ownership is correct and enforced from day one.
+- Chose Docker Compose over XAMPP/MAMP or a bare PHP built-in server, per user preference — fully isolated and reproducible, easy to tear down/rebuild.
+- Kept `index.html`/`styles.css`/`script.js` at the repo root rather than moving them under a `public/` folder — the PHP container just mounts the repo root as its docroot, so the existing static site needed zero changes.
+- Deferred the item-form/recipe UI and login endpoints to future sessions, and deprioritized the long-pending pure-JS "v0.2.0" (wiring category buttons to the grocery list) — that work will likely move to a PHP-backed flow once the backend lands, rather than being built twice.
+
+### Attempted / left unresolved
+- No login/auth endpoints yet (table exists, no code).
+- No custom-item-entry form or API wiring yet.
+- No recipe creation/application UI or API wiring yet.
+- Nav color contrast fix and hamburger tap-target size verification from Session 4 — contrast was fixed (confirmed: nav background now `rgb(237, 236, 206)`), but tap-target size still hasn't been explicitly checked.
+- `script.js` v0.2.0 (wiring category buttons to the grocery list) — still not started as originally scoped; will likely be redesigned as a PHP-backed flow instead.
+
+### Current state
+- Static frontend unchanged and still fully functional standalone. New Docker Compose backend (PHP 8.3 + Apache, MySQL 8.4, phpMyAdmin) runs alongside it, verified working end-to-end: site loads, DB connects, schema (6 tables) is correctly initialized, and data persists across restarts. No frontend code yet talks to the backend.
+
+### Next step
+Verify the hamburger tap-target size (carried over from Session 4), then start wiring the frontend to the backend — likely beginning with the custom-item-entry form (textbox + category picker) and its API endpoint, since that unblocks testing the per-user items/categories tables end-to-end.
+
+---
+
 ## Session 4 – 2026-09-22
 
 ### What I worked on

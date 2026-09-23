@@ -4,12 +4,23 @@ A simple grocery list app. Pick items from categories (Produce, Meat, Dairy, Pan
 
 ## Running locally
 
-No build step. Open `index.html` in a browser.
+Frontend only, no backend: open `index.html` in a browser.
+
+With the PHP/MySQL backend (Docker):
+1. Copy `.env.example` to `.env` and fill in real dev passwords.
+2. `docker compose up --build -d`
+3. Site: http://localhost:8080/
+4. DB health check: http://localhost:8080/api/health.php
+5. phpMyAdmin: http://localhost:8081/
 
 ## Files
 
 - `index.html` – page markup
 - `styles.css` – styles
+- `script.js` – nav menu behavior
+- `docker-compose.yml`, `docker/` – local PHP/MySQL/phpMyAdmin stack
+- `db/init/` – MySQL schema, auto-loaded on first container start
+- `api/` – PHP backend endpoints
 
 ## Changelog
 

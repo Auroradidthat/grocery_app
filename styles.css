@@ -24,7 +24,7 @@ body > nav {
     flex-wrap: wrap;
     justify-content: center;
     padding: 0.5em;
-    background-color: gray;
+    background-color: rgb(237, 236, 206);
 }
 
 nav a {
