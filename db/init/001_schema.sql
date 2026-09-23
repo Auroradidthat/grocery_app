@@ -59,7 +59,12 @@ CREATE TABLE grocery_list_items (
 -- must be set" is enforced in the API layer instead of at the DB level.
 
 -- Placeholder dev user until real auth exists (login is a future session).
--- password_hash below is password_hash('devpassword', PASSWORD_DEFAULT),
--- generated via: docker compose exec web php -r "echo password_hash('devpassword', PASSWORD_DEFAULT), PHP_EOL;"
+-- password_hash below is a hash of a random value that was generated and
+-- discarded without ever being displayed or recorded -- nobody knows this
+-- password, by design. This row exists only so items/categories/recipes/
+-- grocery_list_items have a valid user_id to reference before login exists.
+-- Set a real password for this account (or remove it) once login is built:
+--   docker compose exec web php -r "echo password_hash('<new password>', PASSWORD_DEFAULT), PHP_EOL;"
+--   UPDATE users SET password_hash = '<generated hash>' WHERE id = 1;
 INSERT INTO users (id, email, password_hash) VALUES
-  (1, 'dev@example.com', '$2y$10$/9gpjXfurWEBltKUOSePW.mxouhLrIsLgy2c8ybqWGEKw5B/lW/t6');
+  (1, 'dev@example.com', '$2y$10$7/D3Ym2GD3MJK5IGfSPnYuh94IXnmNeMXFIDNI2PJ6wGEeThkriM.');

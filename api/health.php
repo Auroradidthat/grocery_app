@@ -25,10 +25,10 @@ try {
         'table_count' => (int) $row['table_count'],
     ]);
 } catch (Throwable $e) {
+    error_log('health check failed: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
         'db_connected' => false,
-        'message' => $e->getMessage(),
     ]);
 }
