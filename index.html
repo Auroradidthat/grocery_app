@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
   <title>Aurora Goes Shopping</title>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav>
-        <a href="index.html">Home</a>
-        <a href="#grocery-list">Grocery List</a>
-        <a href="#accessibility-statement">Accessibility Statement</a>
+        <button type="button" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+        <div id="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#grocery-list">Grocery List</a>
+            <a href="#accessibility-statement">Accessibility Statement</a>
+        </div>
     </nav>
 
     <header>
@@ -22,8 +26,8 @@
     <main id="main-content">
 
         <!--Grocery Display-->
-        <section class="list-section" id="grocery-list" tabindex="-1">
-            <h2>Grocery List</h2>
+        <section class="list-section" id="grocery-list" tabindex="-1" aria-labelledby="grocery-list-heading">
+            <h2 id="grocery-list-heading">Grocery List</h2>
             <div id="grocery-list-items" aria-live="polite"></div>
         </section>
         <!--End Grocery Display-->
