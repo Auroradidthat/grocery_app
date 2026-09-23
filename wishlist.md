@@ -22,3 +22,5 @@ Ideas for `grocery_app` that aren't planned or committed to yet — just a place
   - Rename recipes
   - Show selected ingredients while building a recipe
   - Cancel recipe creation to automatically return to normal mode
+
+- **Interface redesign:** Eventually redo the interface to make it easier to use. No specifics yet — flagged during MVP scoping as a later feature, not part of MVP.
