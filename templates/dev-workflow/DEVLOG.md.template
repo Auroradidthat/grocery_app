@@ -23,6 +23,12 @@ history lives in the README changelog, not here.
 ### Decisions and reasons
 -
 
+### Security
+- (omit this section if nothing in the session touched auth, secrets, input handling, data exposure, or dependencies)
+
+### Accessibility
+- (omit this section if nothing in the session touched semantics, keyboard/focus, contrast, ARIA, or tap targets)
+
 ### Attempted / left unresolved
 -
 

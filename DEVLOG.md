@@ -33,6 +33,17 @@ Per-session development notes. Newest entry first. Release and version history l
 - Deferred the item-form/recipe UI and login endpoints to future sessions, and deprioritized the long-pending pure-JS "v0.2.0" (wiring category buttons to the grocery list) — that work will likely move to a PHP-backed flow once the backend lands, rather than being built twice.
 - Repo made private on GitHub before the first push of this backend work, given the schema/seed data involved; treated as a stopgap alongside (not a substitute for) fixing the actual issues (known placeholder password, verbose error output) — both were fixed the same session rather than left "safe because private."
 
+### Security
+- Placeholder dev user's password hash rotated to correspond to a random, generated-and-discarded value (never displayed or recorded), replacing an earlier known string — nobody knows this password, by design.
+- `api/health.php` stopped echoing exception details to the client on DB-connection failure; now logs server-side via `error_log` and returns a generic error response instead.
+- `.env` (real DB credentials) confirmed gitignored and never committed; `.env.example` holds only placeholder values.
+- `user_id` columns made `NOT NULL` (not nullable) from day one, so per-user data ownership is enforced at the schema level rather than retrofitted later.
+- Repo made private on GitHub as an additional stopgap, not a substitute for the fixes above.
+- Reviewed for public-facing docs afterward: confirmed no real secrets/hashes-of-known-values appear in README/DEVLOG/CLAUDE.md.
+
+### Accessibility
+- Verified the hamburger button's tap-target size (carried over from Session 4): forced `display` on via JS to measure it at the width the desktop media query would otherwise hide it. Rendered box ~27.9×34.5 CSS px — passes the WCAG 2.2 SC 2.5.8 24×24px minimum with no CSS changes needed.
+
 ### Attempted / left unresolved
 - No login/auth endpoints yet (table exists, no code).
 - No custom-item-entry form or API wiring yet.
@@ -85,6 +96,16 @@ Verify the hamburger tap-target size (carried over from Session 4), then start w
 - Chose a plain, unstyled, always-visible skip-link over the usual hide-until-focus pattern — since it's already first in the DOM and renders top-left with zero CSS, adding offscreen/focus-toggle CSS was judged unnecessary complexity for no visible benefit right now.
 - Full WCAG 2.2 AA audit remains deferred (color contrast still can't be fully assessed without a finished color scheme) — but the nav's new `gray` background was audited on its own since it's an actual color decision made this session, and it failed outright.
 
+### Accessibility
+- Nav toggle button built with `aria-expanded`/`aria-controls`/`aria-label="Menu"` from the start, kept in sync through every JS code path (click, resize, outside-click, Escape).
+- Added click-outside-to-close and Escape-to-close (with focus returned to the toggle button), plus a Tab/Shift+Tab focus trap confining keyboard focus to the toggle button + links while the menu is open.
+- `matchMedia` listener force-closes the menu and resets `aria-expanded` when the viewport crosses into desktop width, preventing a "stuck open" state.
+- Found and fixed: `#grocery-list` section was missing an accessible landmark name (no `aria-labelledby`) — added `id="grocery-list-heading"` + matching `aria-labelledby`, consistent with Session 3's Shopping section.
+- Found and flagged (not yet fixed): nav background (`gray`) vs. default browser link blue gives ~2.4:1 contrast, failing WCAG AA's 4.5:1 requirement for normal text.
+- Flagged for manual verification (not yet checked this session): whether `#nav-toggle`'s rendered hit area meets the 24×24px minimum target size (WCAG 2.2 SC 2.5.8) — later confirmed passing in Session 5.
+- Confirmed no regressions: focus outlines untouched, all 7 category `role="group"`/`aria-labelledby` pairs still correct.
+- Discussed and deferred the skip-link's visual styling — left as a plain, unstyled, always-visible top-left link rather than the usual hidden-until-focus pattern, since it's already first in the DOM.
+
 ### Attempted / left unresolved
 - Nav contrast fix (gray background / default link blue) — identified, not yet fixed.
 - Hamburger button minimum tap-target size (24×24px) — flagged for manual verification, not yet checked.
@@ -126,6 +147,16 @@ Fix the nav color contrast issue (gray background vs. default link blue, current
 - Used `clamp()` over a `min-width` media query for padding (fluid scaling, no breakpoint to pick/maintain).
 - Kept `.category-list` (3-column grouping) as a separate class from `.list-section` rather than modifying `.list-section` directly, to avoid coupling the Grocery List section's layout to the Shopping section's.
 - Accessibility fixes were scoped to manual code review only — no automated tooling (axe/Pa11y/Lighthouse) run, consistent with the project's no-Node-tooling stance; a full WCAG 2.2 audit was offered but deferred by the user for a future session.
+
+### Accessibility
+- Restored the Shopping section's accessible name via `aria-labelledby`/`id` (broken when `<h2>` was moved out of the section in Session 2).
+- Wired the nav's placeholder links to real in-page targets (`#grocery-list`, `#accessibility-statement`) with `tabindex="-1"` on targets for reliable focus; left "Home" as a real link to `index.html`.
+- Added a skip-to-main-content link (`<main id="main-content">`).
+- Wrapped each category in `role="group"` + `aria-labelledby`, tied to a unique `id` on each `<h3>`.
+- Converted each category's item buttons from `<div>`s to `<ul>`/`<li>` for list semantics; reset browser default list styling in CSS.
+- Added `id="grocery-list-items"` and `aria-live="polite"` to the empty Grocery List `<div>`, prepping it for the v0.2.0 script.
+- Bumped the footer's `Accessibility Statement` heading from `<h3>` to `<h2>` (top-level landmark, not a subsection).
+- Full WCAG 2.2 AA audit and color-contrast review deferred — no real colors chosen yet, no automated tooling run.
 
 ### Attempted / left unresolved
 - Full WCAG 2.2 AA audit — deferred.
@@ -214,6 +245,9 @@ Then return to the v0.2.0 script: give the Grocery List `<div>` an `id` and add 
 - README changelog = release/version history; DEVLOG = per-session notes. Kept separate on purpose.
 - Docs-only fixes don't bump the version.
 - No `package.json` / `npm version`; not worth Node tooling for a plain HTML/CSS project.
+
+### Security
+- Kept the remote's `.gitignore` and extended it with `.env.*`, `npm-debug.log*`, `*.swp`, `build/` — secrets/dependency hygiene established before any backend or credentials existed.
 
 ### Attempted / left unresolved
 - `README.md` was created with a UTF-8 byte-order mark (PowerShell `Set-Content -Encoding utf8`); harmless, not stripped.

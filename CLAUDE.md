@@ -16,9 +16,13 @@ Each entry uses these sections, concise but detailed enough to reconstruct the s
 - Files / components changed
 - Problems encountered and how they were resolved
 - Decisions and reasons (technical or architectural, when known)
+- Security (as applicable — anything touching auth, secrets, input handling, data exposure, dependencies)
+- Accessibility (as applicable — anything touching semantics, keyboard/focus, contrast, ARIA, tap targets)
 - Attempted / left unresolved
 - Current state
 - Next step (the specific thing to resume with)
+
+Omit the Security or Accessibility section entirely for a session where neither applies, rather than writing "N/A".
 
 ## Git
 - Work on `main` unless told otherwise; check `git branch --show-current` before committing.
