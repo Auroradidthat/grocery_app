@@ -2,7 +2,7 @@
 
 Ideas for `grocery_app` that aren't planned or committed to yet — just a place to jot things down before they're scoped into real work. Nothing here needs a "why" or a plan; move an idea to `DEVLOG.md` once you actually start building it.
 
-- **Recipe mode:** Allows users to create reusable recipes from existing grocery item buttons.
+- **Recipe mode** *(promoted to next sprint as of Session 6 — see `DEVLOG.md`, no longer just an idea)*: Allows users to create reusable recipes from existing grocery item buttons.
 
   Proposed flow:
   1. User selects "Create Recipe."
@@ -14,7 +14,7 @@ Ideas for `grocery_app` that aren't planned or committed to yet — just a place
   7. Automatically exit recipe mode and return to normal mode.
   8. Generate a reusable button for the saved recipe.
   9. Selecting the recipe button adds its ingredients to the grocery list.
-  10. Existing deduplication behavior should prevent duplicate grocery items.
+  10. Should use the existing quantity system (added in Session 6) rather than simple duplicate prevention — adding a recipe's ingredients should increment quantities for items already on the list, not just skip duplicates.
 
   Possible future enhancements:
   - Edit existing recipes

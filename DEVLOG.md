@@ -18,6 +18,8 @@ Per-session development notes. Newest entry first. Release and version history l
 - Resized every button in the shopping section (plain buttons and the `−`/`+` pair) to a uniform width, using CSS specificity/source order so the small `−`/`+` buttons (2rem square, above the WCAG 2.5.8 tap-target minimum) aren't stretched by the general full-width button rule.
 - Replaced the Grocery List's `aria-live="polite"` region with a single dedicated, visually-hidden status announcer (`role="status" aria-live="polite"`) in the shopping section, so add/increment/decrement/remove actions get an immediate, clear announcement ("Bell Pepper quantity 3") right where the user is acting — "one announcer per region," instead of two regions potentially double-announcing the same change.
 - Verified every stage of this (add, increment, decrement, full removal, focus position, announcer text, uniform sizing) by actually running the page in a browser and driving it programmatically — not just reading the code.
+- Closed the session with a full team audit of current state: confirmed the per-item `role="group"` nests correctly inside each category's existing `role="group"` (valid ARIA, no conflict); reconfirmed `.env` has never been committed and stays gitignored; confirmed no new attack surface was introduced this session (everything shipped was client-side); re-flagged the still-lorem-ipsum Accessibility Statement as the top unresolved item; noted the new DevSecOps review process (Mozilla HTTP Observatory + OWASP) has nothing to run against yet since there's no deployed target.
+- Set next-sprint priorities from that audit: recipe mode and a real Accessibility Statement both go into the next sprint. The full WCAG 2.2 AA audit stays deferred, specifically because it depends on a finished color scheme/styles that don't exist yet. DevSecOps review stays deferred until the project starts handling real secrets (auth/login work).
 
 ### Files / components changed
 - `index.html` — added `<ul id="grocery-list-ul">` inside the Grocery List region; added `#item-status` (the visually-hidden announcer) to the shopping section; removed `aria-live` from the Grocery List container.
@@ -50,7 +52,7 @@ Per-session development notes. Newest entry first. Release and version history l
 - The grocery list actually works end-to-end in the browser now: clicking a category item adds it, `+`/`−` adjust quantity, quantity reaching 0 fully reverts the control back to its original plain-button state, and every step is announced accessibly. Still no backend involvement — this is all client-side JS state, matching the static frontend's current scope. Repo remains private on GitHub; this session's work is pushed to `main`.
 
 ### Next step
-Per the agreed MVP order, grocery-list wiring is now done — next up is login/signup (the `users` table already exists from Session 5, no auth code yet), which unblocks real per-user data before building custom item entry and recipe mode on top of it.
+Next sprint: build recipe mode (flow already sketched in `wishlist.md`) and write the real Accessibility Statement content, replacing the lorem ipsum that's been outstanding since Session 1.
 
 ---
 
