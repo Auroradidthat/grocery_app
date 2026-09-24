@@ -28,13 +28,16 @@
         <!--Grocery Display-->
         <section class="list-section" id="grocery-list" tabindex="-1" aria-labelledby="grocery-list-heading">
             <h2 id="grocery-list-heading">Grocery List</h2>
-            <div id="grocery-list-items" aria-live="polite"></div>
+            <div id="grocery-list-items">
+                <ul id="grocery-list-ul"></ul>
+            </div>
         </section>
         <!--End Grocery Display-->
 
         <!--Shopping Item Selection-->
         <section class="list-section category-list" aria-labelledby="shopping-items-heading">
             <h2 id="shopping-items-heading">Add Shopping Items</h2>
+            <div id="item-status" role="status" aria-live="polite" class="visually-hidden"></div>
             <div role="group" aria-labelledby="produce-heading">
                 <h3 id="produce-heading">Produce</h3>
                 <ul class="category-grid">

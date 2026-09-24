@@ -2,6 +2,21 @@
     box-sizing: border-box;
 }
 
+/* Keeps content available to screen readers while hiding it visually.
+   Uses fixed px (not em/rem): this is a clipping technique tied to exact
+   pixel geometry, not a scalable design measurement. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* MOBILE NAV MENU */
 #nav-links {
     display: none;
@@ -62,6 +77,19 @@ nav a {
 .category-grid button {
     width: 100%;
     padding: 0.5em;
+}
+
+.item-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+}
+
+.item-controls button {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
 }
 
 #shopping-items-heading {
