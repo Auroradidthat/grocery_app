@@ -21,7 +21,7 @@ This stack is for local development only (i.e. running on your own computer whil
 
 - `index.html` – page markup
 - `styles.css` – styles
-- `script.js` – nav menu behavior
+- `script.js` – nav menu behavior; grocery list add/remove/quantity logic and its screen-reader announcer
 - `docker-compose.yml`, `docker/` – local PHP/MySQL/phpMyAdmin stack (defines and configures the three containers described above)
 - `db/init/` – MySQL schema (the database's table structure) and starting data, loaded automatically the first time the database container starts
 - `api/` – PHP backend endpoints (the server-side code the frontend will eventually talk to)
@@ -29,6 +29,12 @@ This stack is for local development only (i.e. running on your own computer whil
 ## Changelog
 
 Versioning follows [Semantic Versioning](https://semver.org) (a version-numbering convention: `MAJOR.MINOR.PATCH`). `0.x` means initial development — nothing is released yet.
+
+### v0.2.0 – 2026-09-23
+- Wired the grocery list to actually work: clicking a category item button adds it to the Grocery List.
+- Added quantity controls — each added item shows `− Item +` buttons, where `+` increments and `−` decrements, fully removing the item once its quantity reaches 0.
+- Built this accessibly: no keyboard/screen-reader focus loss at any step, and every add/increment/decrement/remove is announced immediately through a dedicated screen-reader status message.
+- Made all buttons in the shopping section a uniform size.
 
 ### v0.1.0 – 2026-09-19
 - Added the grocery list page (`index.html`) with nav, header, a grocery list display area, and item buttons grouped by category: Produce, Meat, Dairy, Pantry, Desserts, Cleaning Supplies, Dental Hygiene.
