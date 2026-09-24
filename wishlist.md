@@ -2,7 +2,7 @@
 
 Ideas for `grocery_app` that aren't planned or committed to yet — just a place to jot things down before they're scoped into real work. Nothing here needs a "why" or a plan; move an idea to `DEVLOG.md` once you actually start building it.
 
-- **Recipe mode** *(promoted to next sprint as of Session 6 — see `DEVLOG.md`, no longer just an idea)*: Allows users to create reusable recipes from existing grocery item buttons.
+- **Recipe mode** *(promoted to next sprint as of Session 6 — see `DEVLOG.md`, no longer just an idea)*: Allows users to create reusable recipes from existing grocery item buttons. **Scoped client-side only for the next sprint** — recipes live in JS memory like the current grocery list (gone on reload), no backend persistence yet. Real persistence is deferred until login exists, since saving now would mean writing every user's recipes to the same placeholder dev account.
 
   Proposed flow:
   1. User selects "Create Recipe."
