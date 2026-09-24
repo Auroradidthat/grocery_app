@@ -4,6 +4,56 @@ Per-session development notes. Newest entry first. Release and version history l
 
 ---
 
+## Session 6 – 2026-09-23
+
+### What I worked on
+- Defined the "public MVP" scope with the team persona (full-stack dev, accessibility SME, DevSecOps): clarified this means a live-hosted app with real user accounts, not just a public GitHub repo. Agreed a build order: grocery-list wiring → login/signup → custom item entry → recipe mode → real accessibility statement + a full WCAG 2.2 AA audit → hosting + HTTPS + backups.
+- Confirmed recipe mode (already sketched in `wishlist.md`) is an MVP must-have, not a post-launch feature, after pushback that it's core to the product.
+- Added an "Interface redesign" idea to `wishlist.md` (no specifics yet — flagged during MVP scoping as a later feature, not MVP).
+- Built the actual grocery-list wiring (the long-pending "v0.2.0" script): clicking a category item button adds it to the Grocery List, with duplicate prevention.
+- Iterated through several rounds of a "remove item" control design, discussed with the accessibility SME before each build:
+  1. First pass: clicking an item revealed a `−` button and disabled the original item button (which still showed its name, since disabling never hides text).
+  2. Revised to a true `− Item +` layout with the item name as plain, non-interactive text — kept the original button element alive throughout (never destroyed/recreated) and just changed its content, to avoid losing keyboard/screen-reader focus.
+  3. Changed the model again from a one-time toggle to a quantity counter: `+` now increments by 1 each click (no longer disabled after the first add), `−` decrements, and the controls fully collapse back to the plain original button once quantity reaches 0. The Grocery List shows `Item ×3` once quantity is above 1.
+- Resized every button in the shopping section (plain buttons and the `−`/`+` pair) to a uniform width, using CSS specificity/source order so the small `−`/`+` buttons (2rem square, above the WCAG 2.5.8 tap-target minimum) aren't stretched by the general full-width button rule.
+- Replaced the Grocery List's `aria-live="polite"` region with a single dedicated, visually-hidden status announcer (`role="status" aria-live="polite"`) in the shopping section, so add/increment/decrement/remove actions get an immediate, clear announcement ("Bell Pepper quantity 3") right where the user is acting — "one announcer per region," instead of two regions potentially double-announcing the same change.
+- Verified every stage of this (add, increment, decrement, full removal, focus position, announcer text, uniform sizing) by actually running the page in a browser and driving it programmatically — not just reading the code.
+
+### Files / components changed
+- `index.html` — added `<ul id="grocery-list-ul">` inside the Grocery List region; added `#item-status` (the visually-hidden announcer) to the shopping section; removed `aria-live` from the Grocery List container.
+- `script.js` — full grocery-list add/increment/decrement/collapse logic, dedup-turned-quantity tracking (`itemQuantities` Map), the `announce()` helper.
+- `styles.css` — `.item-controls` (flex row, cross-axis centered), uniform button sizing (`.category-grid button { width: 100% }` + more-specific `.item-controls button { width: 2rem; height: 2rem }`), `.visually-hidden` utility class (fixed px, not rem — a screen-reader clipping technique, not a scalable design measurement).
+- `wishlist.md` — added the "Interface redesign" idea.
+
+### Problems encountered and how they were resolved
+- Browser testing initially showed the old "stacked/dropdown" button layout even after the CSS fix — turned out to be a stale browser cache of `styles.css` from an earlier local test server, not a real bug. Confirmed via a direct `fetch` with `cache: 'no-store'` that the served file was correct, then hard-reloaded (Ctrl+Shift+R) to clear it.
+- Made a test-script mistake (not an app bug): both the `−` and `+` buttons carry a `data-item` attribute for lookup, so a loose `querySelector('[data-item="Bell Pepper"]')` grabbed the `−` button (first in DOM order) instead of `+`, causing two decrements instead of two increments. Caught by inspecting the resulting DOM state rather than trusting the script's return value alone.
+- This DEVLOG entry itself was written late — code was committed and pushed across several commits this session before the entry was drafted, breaking the project's own "propose the entry before committing" workflow. Session 7 onward should draft-as-you-go instead of catching up at the end.
+
+### Decisions and reasons
+- Quantity counter (not a simple on/off toggle) for `+`/`−`, per explicit direction — matches a real shopping-list use case (buying more than one of an item) better than a toggle would, and needed no schema change since quantity is currently pure client-side state.
+- Never destroy the original item button when it transforms into `− Item +` — only reparent and mutate its content — specifically to avoid the focus-loss problem a naive delete-and-recreate approach would cause for keyboard and screen-reader users.
+- One live-region announcer per page region, not one per interactive change — retired the Grocery List's own `aria-live` in favor of a single, purpose-built status region in the shopping section, since two regions announcing the same change is more confusing than helpful.
+- Uniform button sizing implemented via CSS specificity/source order (a more-specific/later rule overriding a general one) rather than adding new classes to every button, to keep the plain-button markup untouched.
+
+### Accessibility
+- All of the "− Item +" interaction design above was built specifically to solve for screen-reader and keyboard use: no destroyed DOM nodes, explicit focus management at every transition (into the group, back out of it), grouped `role="group"` + `aria-label` on the `−`/name/`+` trio, and `aria-label`s on both buttons since their visible text is just glyphs (`−`, `+`).
+- Single visually-hidden status announcer added so every quantity/add/remove action gets an immediate, specific announcement, replacing a more indirect setup where the only feedback was the Grocery List section incidentally re-reading its own updated text.
+- All interactive controls (plain item buttons and the `−`/`+` pair) confirmed to meet the WCAG 2.2 SC 2.5.8 24×24px tap-target minimum (2rem = 32px at default font size).
+
+### Attempted / left unresolved
+- No backend wiring yet — the grocery list is in-memory only (JS state), nothing persists on reload. That's expected at this stage of the MVP order (login/signup and real data wiring come next).
+- No custom item entry, login/signup, or recipe mode built yet — all still ahead per the agreed MVP order.
+- Footer's Accessibility Statement is still lorem ipsum (carried over, previously re-flagged in Session 5).
+
+### Current state
+- The grocery list actually works end-to-end in the browser now: clicking a category item adds it, `+`/`−` adjust quantity, quantity reaching 0 fully reverts the control back to its original plain-button state, and every step is announced accessibly. Still no backend involvement — this is all client-side JS state, matching the static frontend's current scope. Repo remains private on GitHub; this session's work is pushed to `main`.
+
+### Next step
+Per the agreed MVP order, grocery-list wiring is now done — next up is login/signup (the `users` table already exists from Session 5, no auth code yet), which unblocks real per-user data before building custom item entry and recipe mode on top of it.
+
+---
+
 ## Session 5 – 2026-09-23
 
 ### What I worked on
